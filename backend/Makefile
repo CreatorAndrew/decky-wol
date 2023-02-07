@@ -1,14 +1,15 @@
-# This is the default target, which will be built when 
+# This is the default target, which will be built when
 # you invoke make
 .PHONY: all
-all: hello
+all: out
 
-# This rule tells make how to build hello from hello.cpp
-hello:
-	mkdir -p ./out
-	gcc -o ./out/hello ./src/main.c 
+# This rule creates the output directories and copies the files there
+out:
+	mkdir -p ../bin/
+	cp ./src/start.sh ../bin/
+	cp ./src/stop.sh ../bin/
 
-# This rule tells make to delete hello and hello.o
-.PHONY: clean 
+# This rule tells make to delete the output files
+.PHONY: clean
 clean:
-	rm -f hello
+	rm -rf ../bin/

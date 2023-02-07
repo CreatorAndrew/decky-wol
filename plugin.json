@@ -1,10 +1,10 @@
 {
-  "name": "Example Plugin",
-  "author": "John Doe",
-  "flags": ["debug", "_root"],
+  "name": "DeckyWOL",
+  "author": "r0r0",
+  "flags": ["root"],
   "publish": {
-    "tags": ["template", "root"],
-    "description": "Decky example plugin.",
-    "image": "https://opengraph.githubassets.com/1/SteamDeckHomebrew/PluginLoader"
+    "tags": ["utility", "root"],
+    "description": "A plugin that allows your Steam Deck to make use of Wake-on-LAN functionality",
+    "image": "https://github.com/scramble45/decky-wol/raw/main/assets/screenshot.png"
   }
 }

@@ -44,3 +44,7 @@ yalc.lock
 # Ignore output folder
 
 backend/out
+deploy.files
+deploy.sh
+bin/start.sh
+bin/stop.sh
