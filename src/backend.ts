@@ -30,6 +30,6 @@ export async function toggle_wol(): Promise<boolean> {
   return backend_call<{}, boolean>("toggle_wol", {});
 }
 
-export async function stop_wol(): Promise<{}> {
-  return backend_call<{}, {}>("stop_wol", {});
+export async function uninstall(): Promise<{}> {
+  return backend_call<{}, {}>("uninstall", {});
 }

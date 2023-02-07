@@ -36,7 +36,7 @@ class Plugin:
         pass
 
     async def _unload(self):
-        await self.stop_wol()
+        await self.uninstall()
         pass
 
     # Check if WOL is running
@@ -52,5 +52,5 @@ class Plugin:
         return is_running()
 
     # Stop WOL
-    async def stop_wol(self):
+    async def uninstall(self):
         subprocess.run("./uninstall.sh", cwd=PLUGIN_BIN_DIR, shell=True)

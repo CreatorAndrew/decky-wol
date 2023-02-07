@@ -43,7 +43,7 @@ export default definePlugin((serverApi: ServerAPI) => {
     content: <Content serverAPI={serverApi} />,
     icon: <FaFolder />,
     onDismount() {
-      backend.stop_wol()
+      backend.uninstall()
     },
   };
 });
