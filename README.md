@@ -4,6 +4,25 @@ A Steam Deck plugin (for Decky Loader) to enable WOL for SteamDecks internal WiF
 
 ![Screenshot of Deck UI](assets/screenshot.png)
 
+## How it works:
+- It issues an IW command to enable the WoWLAN functionality for the steam decks internal wifi
+- We have two systemd services:
+   - one to ensure that we interrupt the hibernation with a call to s3 instead
+   - the other makes sure the hardware is unblocked. (as this plugin is still experimental more testing to come on this...)
+
+## How to use it:
+- Click on toggle for WoWLAN
+- Press your SteamDeck top power button once to put it to sleep
+- Use a tool such as: `wakeonlan` to wake up your deck: `ie: $ wakeonlan 0a:de:ea:db:ee:fe`, our be fancy and setup homebridge to toggle it from your phone through siri
+
+## TBD / To-Do:
+- No idea how this effects the battery.
+- Not sure there is any impact if you disable wifi power management option in steam developer menu.
+- Dock support
+- Why didn't Valve give us an official option?
+- What fun things can we do with Bluetooth to wake the system?
+
+
 ## Installation
 
 Install through Decky plugin store.
