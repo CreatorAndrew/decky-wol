@@ -5,11 +5,11 @@ all: out
 
 # This rule creates the output directories and copies the files there
 out:
-	mkdir -p ../bin/
-	cp ./src/start.sh ../bin/
-	cp ./src/stop.sh ../bin/
+	mkdir -p ./out
+	cp ./src/start.sh ./out/
+	cp ./src/stop.sh ./out/
 
 # This rule tells make to delete the output files
 .PHONY: clean
 clean:
-	rm -rf ../bin/
+	rm -rf ./out
