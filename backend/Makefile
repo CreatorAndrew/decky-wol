@@ -8,6 +8,7 @@ out:
 	mkdir -p ./out
 	cp ./src/start.sh ./out/
 	cp ./src/stop.sh ./out/
+	cp ./src/uninstall.sh ./out/
 
 # This rule tells make to delete the output files
 .PHONY: clean

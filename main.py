@@ -37,13 +37,7 @@ class Plugin:
 
     async def _unload(self):
         await self.stop_wol()
-        subprocess.run(["sudo", "systemctl", "stop", "wifi-resume.service"], shell=True)
-        subprocess.run(["sudo", "systemctl", "disable", "wifi-resume.service"], shell=True)
-        subprocess.run(["sudo", "rm", "/etc/systemd/system/wifi-resume.service"], shell=True)
-
-        subprocess.run(["sudo", "systemctl", "stop", "s3-hibernate.service"], shell=True)
-        subprocess.run(["sudo", "systemctl", "disable", "s3-hibernate.service"], shell=True)
-        subprocess.run(["sudo", "rm", "/etc/systemd/system/s3-hibernate.service"], shell=True)
+        await self.uninstall()
 
         pass
 
@@ -58,6 +52,10 @@ class Plugin:
         else:
             subprocess.run("./stop.sh", cwd=PLUGIN_BIN_DIR, shell=True)
         return is_running()
+
+    # Uninstall
+    async def uninstall(self);
+        subprocess.run("./stop.sh", cwd=PLUGIN_BIN_DIR, shell=True)
 
     # Stop WOL
     async def stop_wol(self):
