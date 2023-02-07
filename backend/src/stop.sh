@@ -1,2 +1,3 @@
 #!/bin/bash
-iw phy0 wowlan disable
+sudo systemctl disable wifi-resume.service
+sudo iw phy0 wowlan disable
