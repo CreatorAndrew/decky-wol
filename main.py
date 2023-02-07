@@ -38,7 +38,6 @@ class Plugin:
     async def _unload(self):
         await self.stop_wol()
         await self.uninstall()
-
         pass
 
     # Check if WOL is running
