@@ -1,4 +1,5 @@
 #!/bin/bash
+
 sudo systemctl stop wifi-resume.service
 sudo systemctl disable wifi-resume.service
 sudo rm /etc/systemd/system/wifi-resume.service

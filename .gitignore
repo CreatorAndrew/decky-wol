@@ -46,5 +46,4 @@ yalc.lock
 backend/out
 deploy.files
 deploy.sh
-bin/start.sh
-bin/stop.sh
+
