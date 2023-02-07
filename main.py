@@ -1,4 +1,5 @@
 import os
+import asyncio
 import subprocess
 import pathlib
 import logging
@@ -37,6 +38,14 @@ class Plugin:
 
     async def _unload(self):
         await self.stop_wol()
+        await asyncio.create_subprocess_exec("systemctl", "stop", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("systemctl", "disable", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("rm", "/etc/systemd/system/wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+
+        await asyncio.create_subprocess_exec("systemctl", "stop", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("systemctl", "disable", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("rm", "/etc/systemd/system/s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+
         pass
 
     # Check if WOL is running
