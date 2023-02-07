@@ -38,13 +38,13 @@ class Plugin:
 
     async def _unload(self):
         await self.stop_wol()
-        await asyncio.create_subprocess_exec("systemctl", "stop", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-        await asyncio.create_subprocess_exec("systemctl", "disable", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-        await asyncio.create_subprocess_exec("rm", "/etc/systemd/system/wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "systemctl", "stop", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "systemctl", "disable", "wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "rm", "/etc/systemd/system/wifi-resume.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
 
-        await asyncio.create_subprocess_exec("systemctl", "stop", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-        await asyncio.create_subprocess_exec("systemctl", "disable", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
-        await asyncio.create_subprocess_exec("rm", "/etc/systemd/system/s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "systemctl", "stop", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "systemctl", "disable", "s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
+        await asyncio.create_subprocess_exec("sudo", "rm", "/etc/systemd/system/s3-hibernate.service", stdout=asyncio.subprocess.PIPE, stderr=asyncio.subprocess.PIPE)
 
         pass
 
