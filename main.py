@@ -54,7 +54,7 @@ class Plugin:
         return is_running()
 
     # Uninstall
-    async def uninstall(self);
+    async def uninstall(self):
         subprocess.run("./stop.sh", cwd=PLUGIN_BIN_DIR, shell=True)
 
     # Stop WOL
