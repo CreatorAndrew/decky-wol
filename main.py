@@ -23,7 +23,7 @@ def get_wol_status() -> str:
         return "Unknown"
     return "Unknown"
 
-# Check if umtprd is running
+# Check if WOL is running
 def is_running() -> bool:
     wol_status = get_wol_status()
     if wol_status == "Active":
