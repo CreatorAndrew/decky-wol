@@ -33,3 +33,11 @@ export async function toggle_wol(): Promise<boolean> {
 export async function uninstall(): Promise<{}> {
   return backend_call<{}, {}>("uninstall", {});
 }
+
+export async function ip(): Promise<string> {
+  return backend_call<{}, string>("ip", {});
+}
+
+export async function hwmac(): Promise<string> {
+  return backend_call<{}, string>("hwmac", {});
+}

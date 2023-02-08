@@ -54,3 +54,17 @@ class Plugin:
     # Stop WOL
     async def uninstall(self):
         subprocess.run("./uninstall.sh", cwd=PLUGIN_BIN_DIR, shell=True)
+
+    # Return IP for wlan0
+    async def ip(self):
+        cmd = "ip addr show wlan0 | grep 'inet' | awk '{print $2}' | cut -d/ -f1 | head -n1"
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        return stdout.strip().decode()
+
+    # Return HW MAC for wlan0
+    async def hwmac(self):
+        cmd = "cat /sys/class/net/wlan0/address"
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        return stdout.strip().decode()
