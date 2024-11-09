@@ -1,34 +1,32 @@
-import {
-  definePlugin,
-  PanelSection,
-  PanelSectionRow,
-  ToggleField,
-  ServerAPI,
-  staticClasses,
-} from "decky-frontend-lib";
-import { useState, useEffect, VFC } from "react";
-import { FaWifi } from "react-icons/fa";
+import { callable, definePlugin } from "@decky/api"
+import { PanelSection, PanelSectionRow, staticClasses, ToggleField } from "@decky/ui"
+import { useEffect, useState } from "react"
+import { FaWifi } from "react-icons/fa"
 
-import * as backend from "./backend";
+const isRunning = callable<[], boolean>("is_running")
+const toggleWOL = callable<[], boolean>("toggle_wol")
+const uninstall = callable<[], {}>("uninstall")
+const getIP = callable<[], string>("get_ip")
+const getMAC = callable<[], string>("get_mac")
 
-const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
-  const [wolEnabled, setwolEnabled] = useState<boolean>(false);
-  const [hwmac, sethwmac] = useState<string>("");
-  const [ip, setip] = useState<string>("");
+const Content = () => {
+  const [wolEnabled, setWOLEnabled] = useState<boolean>(false)
+  const [mac, setMAC] = useState<string>("")
+  const [ip, setIP] = useState<string>("")
 
   useEffect(() => {
-    backend.is_running().then((running) => {
-      setwolEnabled(running);
-    });
+    isRunning().then((running) => {
+      setWOLEnabled(running)
+    })
 
-    backend.hwmac().then((mac) => {
-      sethwmac(mac);
-    });
+    getMAC().then((mac) => {
+      setMAC(mac)
+    })
 
-    backend.ip().then((ipAddress) => {
-      setip(ipAddress);
-    });
-  }, []);
+    getIP().then((ip) => {
+      setIP(ip)
+    })
+  }, [])
 
   return (
     <PanelSection>
@@ -37,7 +35,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
           label="WoWLAN"
           checked={wolEnabled}
           onChange={async () => {
-            await backend.toggle_wol()
+            await toggleWOL()
           }}
         />
       </PanelSectionRow>
@@ -45,7 +43,7 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
         <br />
         <b>WiFi MAC Address:</b>
         <br />
-        <small>{hwmac}</small>
+        <small>{mac}</small>
         <br />
         <br />
         <b>WiFi IP address:</b>
@@ -53,18 +51,17 @@ const Content: VFC<{ serverAPI: ServerAPI }> = ({}) => {
         <small>{ip}</small>
       </div>
     </PanelSection>
-  );
-};
+  )
+}
 
-export default definePlugin((serverApi: ServerAPI) => {
-  backend.setServerAPI(serverApi);
-
+export default definePlugin(() => {
   return {
-    title: <div className={staticClasses.Title}>DeckyWOL</div>,
-    content: <Content serverAPI={serverApi} />,
+    name: "DeckyWOL",
+    titleView: <div className={staticClasses.Title}>DeckyWOL</div>,
+    content: <Content />,
     icon: <FaWifi />,
     onDismount() {
-      backend.uninstall()
+      uninstall()
     },
-  };
-});
+  }
+})

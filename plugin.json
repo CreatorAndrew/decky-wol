@@ -2,6 +2,7 @@
   "name": "DeckyWOL",
   "author": "r0r0",
   "flags": ["root"],
+  "api_version": 1,
   "publish": {
     "tags": ["utility", "root"],
     "description": "A plugin that allows your Steam Deck to make use of Wake-on-LAN functionality",

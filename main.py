@@ -1,27 +1,33 @@
 import os
 import subprocess
 import pathlib
-import logging
 import sys
 
 # append py_modules to PYTHONPATH
-sys.path.append(os.path.dirname(os.path.realpath(__file__))+"/py_modules")
+sys.path.append(os.path.dirname(os.path.realpath(__file__)) + "/py_modules")
 
 PLUGIN_DIR = str(pathlib.Path(__file__).parent.resolve())
 PLUGIN_BIN_DIR = PLUGIN_DIR + "/bin"
 
+
 def get_wol_status() -> str:
     try:
-        with subprocess.Popen(["iw", "phy0", "wowlan", "show"], stdout=subprocess.PIPE) as p:
+        with subprocess.Popen(
+            ["iw", "phy0", "wowlan", "show"], stdout=subprocess.PIPE
+        ) as p:
             assert p.stdout is not None
             output = p.stdout.read().decode("utf-8")
             if "WoWLAN is disabled." in output:
                 return "Not Active"
-            elif "WoWLAN is enabled:\n * wake up on disconnect\n * wake up on magic packet\n" in output:
+            elif (
+                "WoWLAN is enabled:\n * wake up on disconnect\n * wake up on magic packet\n"
+                in output
+            ):
                 return "Active"
     except:
         return "Unknown"
     return "Unknown"
+
 
 # Check if WOL is running
 def is_running() -> bool:
@@ -30,6 +36,7 @@ def is_running() -> bool:
         return True
     else:
         return False
+
 
 class Plugin:
     async def _main(self):
@@ -56,15 +63,19 @@ class Plugin:
         subprocess.run("./uninstall.sh", cwd=PLUGIN_BIN_DIR, shell=True)
 
     # Return IP for wlan0
-    async def ip(self):
+    async def get_ip(self):
         cmd = "ip addr show wlan0 | grep 'inet' | awk '{print $2}' | cut -d/ -f1 | head -n1"
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(
+            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
         stdout, stderr = process.communicate()
         return stdout.strip().decode()
 
     # Return HW MAC for wlan0
-    async def hwmac(self):
+    async def get_mac(self):
         cmd = "cat /sys/class/net/wlan0/address"
-        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        process = subprocess.Popen(
+            cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE
+        )
         stdout, stderr = process.communicate()
         return stdout.strip().decode()
