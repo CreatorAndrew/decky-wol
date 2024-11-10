@@ -20,38 +20,32 @@ const Content = () => {
         getIP().then(ip => setIP(ip))
     }, [])
 
-    return (
-        <PanelSection>
-            <PanelSectionRow>
-                <ToggleField
-                    label="WoWLAN"
-                    checked={wolEnabled}
-                    onChange={async () => await toggleWOL()}
-                />
-            </PanelSectionRow>
-            <div>
-                <br />
-                <b>WiFi MAC Address:</b>
-                <br />
-                <small>{mac}</small>
-                <br />
-                <br />
-                <b>WiFi IP address:</b>
-                <br />
-                <small>{ip}</small>
-            </div>
-        </PanelSection>
-    )
+    return <PanelSection>
+        <PanelSectionRow>
+            <ToggleField
+                label="WoWLAN"
+                checked={wolEnabled}
+                onChange={async () => await toggleWOL()}
+            />
+        </PanelSectionRow>
+        <div>
+            <br />
+            <b>WiFi MAC Address:</b>
+            <br />
+            <small>{mac}</small>
+            <br />
+            <br />
+            <b>WiFi IP address:</b>
+            <br />
+            <small>{ip}</small>
+        </div>
+    </PanelSection>
 }
 
-export default definePlugin(() => {
-    return {
-        name: "DeckyWOL",
-        titleView: <div className={staticClasses.Title}>DeckyWOL</div>,
-        content: <Content />,
-        icon: <FaWifi />,
-        onDismount() {
-            uninstall()
-        },
-    }
-})
+export default definePlugin(() => ({
+    name: "DeckyWOL",
+    titleView: <div className={staticClasses.Title}>DeckyWOL</div>,
+    content: <Content />,
+    icon: <FaWifi />,
+    onDismount: () => uninstall().catch(e => console.error(e)),
+}))

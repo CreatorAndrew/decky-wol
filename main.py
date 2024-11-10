@@ -29,7 +29,7 @@ def get_wol_status() -> str:
             output = p.stdout.read().decode("utf-8")
             if "WoWLAN is disabled." in output:
                 return "Not Active"
-            elif (
+            if (
                 "WoWLAN is enabled:\n * wake up on disconnect\n * wake up on magic packet\n"
                 in output
             ):
