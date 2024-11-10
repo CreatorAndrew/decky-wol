@@ -58,10 +58,11 @@ class Plugin:
 
     # Toggle WOL
     async def toggle_wol(self) -> bool:
-        if is_running():
-            run("./stop.sh", cwd=PLUGIN_BIN_DIR, shell=True)
-        else:
-            run("./start.sh", cwd=PLUGIN_BIN_DIR, shell=True)
+        run(
+            "./stop.sh" if is_running() else "./start.sh",
+            cwd=PLUGIN_BIN_DIR,
+            shell=True,
+        )
         state["running"] = is_running()
         dump(state, open(PLUGIN_STATE_FILE, "w"))
         return is_running()
