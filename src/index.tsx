@@ -26,9 +26,7 @@ const Content = () => {
                 <ToggleField
                     label="WoWLAN"
                     checked={wolEnabled}
-                    onChange={async () => {
-                        await toggleWOL()
-                    }}
+                    onChange={async () => await toggleWOL()}
                 />
             </PanelSectionRow>
             <div>
